@@ -1,2 +1,15 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(534,5): warning MSB8028: O diretório intermediário (x64\Debug\) contém arquivos compartilhados de outro projeto (Pong.vcxproj). Isso pode levar a um comportamento incorreto de limpeza e recompilação.
+  win32_platform.cpp
+C:\Users\dudur\pingpong\Pong\Pong\renderer.cpp(71,9): warning C4244: 'inicializando': conversão de 'float' para 'int', possível perda de dados
+  (compilando o arquivo fonte 'win32_platform.cpp')
+  
+C:\Users\dudur\pingpong\Pong\Pong\renderer.cpp(72,9): warning C4244: 'inicializando': conversão de 'float' para 'int', possível perda de dados
+  (compilando o arquivo fonte 'win32_platform.cpp')
+  
+C:\Users\dudur\pingpong\Pong\Pong\renderer.cpp(73,9): warning C4244: 'inicializando': conversão de 'float' para 'int', possível perda de dados
+  (compilando o arquivo fonte 'win32_platform.cpp')
+  
+C:\Users\dudur\pingpong\Pong\Pong\renderer.cpp(74,9): warning C4244: 'inicializando': conversão de 'float' para 'int', possível perda de dados
+  (compilando o arquivo fonte 'win32_platform.cpp')
+  
   Pong.vcxproj -> C:\Users\dudur\pingpong\Pong\x64\Debug\pingpong.exe

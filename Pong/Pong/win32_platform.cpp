@@ -1,9 +1,12 @@
 #include <Windows.h>
 
-int width, height;
+//global (na referencia estao na struct Render_State)
 bool running = true;
+int width, height;
 void* buffer_memory;
 BITMAPINFO buffer_bitmap_info;
+
+#include "renderer.cpp"
 
 LRESULT CALLBACK window_callback(HWND hwnd, UINT uMsg, WPARAM wparam, LPARAM lparam) {
 	LRESULT result = 0;
@@ -61,15 +64,16 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 		//Input
 		MSG message;
 
-		while (PeekMessage(&message, window, 0, 0, PM_REMOVE)) {
+		while (PeekMessage(&message, window, 0, 0, PM_REMOVE)){
 			TranslateMessage(&message);
 			DispatchMessage(&message);
-
-
 		}
 
 
 		//simulate
+		clear_screen(0xff5500);
+		draw_rect(0, 0, 20, 20, 0x00ff22);
+
 		for (int y = 0; y < height; y++) { //loops que passam por toda a matriz, simulando o pixel renderizado
 
 			for (int x = 0; x < width; x++) {
@@ -81,17 +85,6 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 
 
 		//render
-		unsigned int* pixel = (unsigned int*)buffer_memory; //pixel a ser simulado
-
-		for (int y = 0; y < height; y++) { //loops que passam por todos os pixels
-
-			for (int x = 0; x < width; x++) {
-
-				*pixel++ = 0xff5500; //define a cor do pixel como laranja e o incrementa
-
-			}
-		}
-
 		StretchDIBits(hdc, 0, 0, width, height, 0, 0, width, height, buffer_memory, &buffer_bitmap_info, DIB_RGB_COLORS, SRCCOPY);
 
 
