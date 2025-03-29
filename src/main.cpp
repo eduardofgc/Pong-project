@@ -26,6 +26,7 @@ void Reset(int x, int y){
 
 int main(){
     float mov = 5, ball_x = 800, ball_y = 400, ball_mov_x = 10, ball_mov_y = 10, ball_rad = 20;
+    float cpu_mov_y = 10;
 
     InitWindow(1600, 800, "Pong");
     SetTargetFPS(60);
@@ -44,14 +45,17 @@ int main(){
         }
 
         //simulation
-        oppRect.rect_y = oppRect.rect_y + mov;
-
-        if (oppRect.rect_y == 0 || oppRect.rect_y == 590){
-            mov = mov * -1;
-        }
 
         ball_x = ball_x + ball_mov_x;
         ball_y = ball_y + ball_mov_y;
+
+        //AI
+        if (oppRect.rect_y + oppRect.height/2 > ball_y){
+            oppRect.rect_y = oppRect.rect_y - cpu_mov_y;
+        }
+        else if (oppRect.rect_y + oppRect.height/2 <= ball_y) {
+            oppRect.rect_y = oppRect.rect_y + cpu_mov_y;
+        }
 
         //ceilling and floor collision
         if (ball_y + ball_rad >= GetScreenHeight() || ball_y - ball_rad <= 0){
@@ -66,15 +70,21 @@ int main(){
 
             ball_mov_x = ball_mov_x * -1;
         }
-
         //player collision
         if (CheckCollisionCircleRec(Vector2{ball_x, ball_y}, ball_rad, Rectangle{playerRect.rect_x, playerRect.rect_y, playerRect.width, playerRect.height+1})){
             ball_mov_x = ball_mov_x * -1;
         }
 
         //opp collision
-        if (CheckCollisionCircleRec(Vector2{ball_x, ball_y}, ball_rad, Rectangle{oppRect.rect_x, oppRect.rect_y, playerRect.width, oppRect.height+1})){
+        if (CheckCollisionCircleRec(Vector2{ball_x, ball_y}, ball_rad, Rectangle{oppRect.rect_x, oppRect.rect_y, oppRect.width, oppRect.height+1})){
             ball_mov_x = ball_mov_x * -1;
+        }
+
+        if (oppRect.rect_y < 0){
+            oppRect.rect_y = 0;
+        }
+        else if (oppRect.rect_y + oppRect.height > GetScreenHeight()){
+            oppRect.rect_y = GetScreenHeight() - oppRect.height;
         }
 
         //rendering
