@@ -2,6 +2,7 @@
 #include <iostream>
 
 int score = 0, oppScore = 0;
+bool shouldReset = false;
 
 class Rect{
     public:
@@ -16,17 +17,17 @@ class Rect{
 };
 
 void Reset(int x, int y){
-    if (x == 0){
+    if (x - 20 <= 0){
         oppScore++;
     }
-    else if (x == GetScreenWidth()){
+    else if (x + 20 >= GetScreenWidth()){
         score++;
     }
 }
 
 int main(){
-    float mov = 5, ball_x = 800, ball_y = 400, ball_mov_x = 10, ball_mov_y = 10, ball_rad = 20;
-    float cpu_mov_y = 10;
+    float ball_x = 800, ball_y = 400, ball_mov_x = 15, ball_mov_y = 15, ball_rad = 20;
+    float cpu_mov_y = 8;
 
     InitWindow(1600, 800, "Pong");
     SetTargetFPS(60);
@@ -95,6 +96,9 @@ int main(){
         DrawRectangle(playerRect.rect_x, playerRect.rect_y, 80*0.7, 300*0.7, BLUE);
         DrawRectangle(oppRect.rect_x, oppRect.rect_y, oppRect.width, oppRect.height, BLUE);
         DrawCircle(ball_x, ball_y, ball_rad, WHITE);
+
+        DrawText(TextFormat("Score: %i", score), 20, 20, 20, WHITE);
+        DrawText(TextFormat("CPU: %i", oppScore), 20, 40, 20, WHITE);
 
         EndDrawing();
     }
